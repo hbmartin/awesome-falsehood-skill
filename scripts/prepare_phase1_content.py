@@ -2,8 +2,9 @@
 """Prepare the phase-1 falsehood source corpus.
 
 This script intentionally does not create SKILL.md or skill metadata. It turns
-the current README link index into a local source mirror, normalized Markdown,
-agent-facing prepared topic notes, and a retrieval/filtering report.
+the legacy Awesome Falsehood reference link index into a local source mirror,
+normalized Markdown, agent-facing prepared topic notes, and a
+retrieval/filtering report.
 """
 
 from __future__ import annotations
@@ -27,7 +28,8 @@ from urllib.parse import urlparse
 
 
 ROOT = Path(__file__).resolve().parents[1]
-README = ROOT / "readme.md"
+REFERENCE_DOC = ROOT / "docs" / "awesome-falsehood-reference.md"
+REFERENCE_DOC_REL = REFERENCE_DOC.relative_to(ROOT).as_posix()
 SOURCES_DIR = ROOT / "sources"
 RAW_DIR = SOURCES_DIR / "raw"
 MARKDOWN_DIR = SOURCES_DIR / "markdown"
@@ -248,13 +250,13 @@ def is_pruned_source(section: str, title: str) -> bool:
     return clean_markdown_text(title).lower() in pruned_titles
 
 
-def parse_readme() -> list[dict]:
+def parse_reference_doc() -> list[dict]:
     entries: list[dict] = []
     current_section = ""
     bullet_number_by_section: dict[str, int] = {}
     used_ids: set[str] = set()
 
-    for lineno, line in enumerate(README.read_text(encoding="utf-8").splitlines(), 1):
+    for lineno, line in enumerate(REFERENCE_DOC.read_text(encoding="utf-8").splitlines(), 1):
         heading = HEADING_RE.match(line)
         if heading:
             current_section = heading.group(1).strip()
@@ -297,8 +299,8 @@ def parse_readme() -> list[dict]:
                 "fetch_url": canonical_fetch_url(url),
                 "resolved_url": "",
                 "archive_target_url": archive_target_url(url),
-                "readme_line": lineno,
-                "readme_bullet": clean_markdown_text(line.removeprefix("- ")),
+                "reference_line": lineno,
+                "reference_bullet": clean_markdown_text(line.removeprefix("- ")),
                 "description": description,
                 "link_index_in_bullet": link_index,
             }
@@ -784,7 +786,7 @@ def write_prepared_files(entries: list[dict]) -> None:
     overview_lines = [
         "# Prepared Falsehood Corpus Overview",
         "",
-        "Phase-1 agent-facing notes generated from `readme.md` linked sources.",
+        f"Phase-1 agent-facing notes generated from `{REFERENCE_DOC_REL}` linked sources.",
         "",
         "This directory intentionally contains prepared content only; it is not a skill definition.",
         "",
@@ -805,7 +807,7 @@ def write_prepared_files(entries: list[dict]) -> None:
             "Each source is normalized for agent consumption with source metadata, extracted checklist items, implementation implications, examples, and citation.",
             "",
         ]
-        for entry in sorted(topic_entries, key=lambda e: (e["section"], e["readme_line"], e["link_index_in_bullet"])):
+        for entry in sorted(topic_entries, key=lambda e: (e["section"], e["reference_line"], e["link_index_in_bullet"])):
             lines.extend(prepared_block(entry))
         (PREPARED_DIR / f"{topic}.md").write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
 
@@ -854,7 +856,7 @@ def write_manifest(entries: list[dict]) -> None:
     SOURCES_DIR.mkdir(parents=True, exist_ok=True)
     manifest = {
         "generated_at": dt.datetime.now(dt.timezone.utc).isoformat(),
-        "readme": "readme.md",
+        "reference_doc": REFERENCE_DOC_REL,
         "entry_count": len(entries),
         "entries": entries,
     }
@@ -892,7 +894,7 @@ def write_report(entries: list[dict], validation: dict) -> None:
         "",
         "## Summary",
         "",
-        f"- README content links represented: {len(entries)}",
+        f"- Reference content links represented: {len(entries)}",
         f"- Included: {by_decision.get('include', 0)}",
         f"- Metadata-only/demoted: {by_decision.get('demote', 0)}",
         f"- Excluded: {by_decision.get('exclude', 0)}",
@@ -986,13 +988,13 @@ def clean_generated_dirs() -> None:
 
 
 def prepare(fetch_workers: int) -> int:
-    if not README.exists():
-        print(f"Missing README: {README}", file=sys.stderr)
+    if not REFERENCE_DOC.exists():
+        print(f"Missing reference doc: {REFERENCE_DOC}", file=sys.stderr)
         return 2
 
     clean_generated_dirs()
-    entries = parse_readme()
-    print(f"Parsed {len(entries)} README content links.")
+    entries = parse_reference_doc()
+    print(f"Parsed {len(entries)} reference content links.")
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=fetch_workers) as executor:
         future_by_id = {executor.submit(run_curl, entry): entry["id"] for entry in entries}

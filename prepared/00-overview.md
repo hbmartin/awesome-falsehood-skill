@@ -2,7 +2,7 @@
 
 Low-token category digests for agent use. These files merge repeated falsehood guidance within each topic. Citation links live in [Prepared Source Index](source-index.md) so the topic digests stay compact.
 
-The raw mirrors are not part of this prepared layer. The full manifest, retrieval report, and original README remain outside it as lightweight provenance and rebuild context.
+The raw mirrors are not part of this prepared layer. The full manifest, retrieval report, and reference link index remain outside it as lightweight provenance and rebuild context.
 
 Use these files as targeted references, not exhaustive source mirrors. Load the topic that matches the implementation surface, scan `Core Rules` first, then use `Falsehoods To Avoid` and `Edge Cases` as a checklist while designing schemas, validators, parsers, API contracts, tests, and migration plans.
 

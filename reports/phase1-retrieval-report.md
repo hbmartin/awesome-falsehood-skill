@@ -4,7 +4,7 @@ Generated: 2026-05-29T00:38:14.559721+00:00
 
 ## Summary
 
-- README content links represented: 131
+- Reference content links represented: 131
 - Included: 102
 - Metadata-only/demoted: 28
 - Excluded: 1
