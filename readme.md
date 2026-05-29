@@ -37,9 +37,7 @@ The *falsehood* articles listed below will have a comprehensive list of those fa
 <!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
 
 - [Meta](#meta)
-- [Arts](#arts)
 - [Business](#business)
-- [Cryptocurrency](#cryptocurrency)
 - [Dates and Time](#dates-and-time)
 - [Education](#education)
 - [Emails](#emails)
@@ -47,16 +45,13 @@ The *falsehood* articles listed below will have a comprehensive list of those fa
 - [Human Identity](#human-identity)
 - [Internationalization](#internationalization)
 - [Management](#management)
-- [Multimedia](#multimedia)
 - [Networks](#networks)
 - [Phone Numbers](#phone-numbers)
 - [Postal Addresses](#postal-addresses)
 - [Science](#science)
 - [Society](#society)
 - [Software Engineering](#software-engineering)
-- [Transportation](#transportation)
 - [Typography](#typography)
-- [Video Games](#video-games)
 - [Web](#web)
 
 <!-- mdformat-toc end -->
@@ -66,11 +61,6 @@ The *falsehood* articles listed below will have a comprehensive list of those fa
 - [Falsehoods Programmers Believe](https://spaceninja.com/2015/12/07/falsehoods-programmers-believe/) - A brief list of common falsehoods. A great overview and quick introduction into the world of falsehoods.
 - [Falsehoods about Programming](https://chiselapp.com/user/ttmrichter/repository/gng/doc/trunk/output/falsehoods.html) - A humbling and fun list on programming and programmers themselves.
 - [Falsehoods about Falsehoods Lists](https://kevin.deldycke.com/2016/falsehoods-programmers-believe-about-falsehoods-lists) - Meta commentary on how these falsehoods shouldn't be handled.
-
-## Arts
-
-- [Falsehoods about Music](https://literateprogrammer.blogspot.fr/2016/07/falsehoods-programmers-believe-about.html) - False assumption that might be made in codifying music.
-- [Falsehoods about Art](http://artsy.github.io/blog/2018/04/18/programmer-misconceptions-about-art/) - Common misconceptions about art.
 
 ## Business
 
@@ -84,12 +74,6 @@ The *falsehood* articles listed below will have a comprehensive list of those fa
 - [Characters `<` and `>` in company names lead to XSS attacks](https://forum.aws.chdev.org/t/cross-site-scripting-xss-software-attack/3355) - Because [UK allows companies to be registered with special characters](https://www.legislation.gov.uk/uksi/2015/17/schedule/1/made), a hacker leveraged them to register `\"><SCRIPT SRC=MJT.XSS.HT></SCRIPT> LTD`, but also `; DROP TABLE "COMPANIES";-- LTD`, `BETTS &AMP; TWINE LTD` and `SAFDASD & SFSAF \' SFDAASF\" LTD`.
 - [Minutiae of company names](https://twitter.com/nthnmsmth/status/1587880523124408322) - How the rules of the State of Delaware and the IRS does not intersects.
 - [CLDR currency definitions](https://github.com/unicode-org/cldr/blob/release-40/common/supplemental/supplementalData.xml#L87-L94) - 🆓 Currency validity date ranges overlap due to revolts, invasions, new constitutions, and slow planned adoption.
-- [`tax`](https://github.com/commerceguys/tax) - 🆓 A PHP 5.4+ tax management library.
-
-## Cryptocurrency
-
-- [Falsehoods about Bitcoin](https://github.com/theborakompanioni/spring-boot-bitcoin-starter/blob/master/docs/FALSEHOODS.md) - A list of mistaken perspectives on Bitcoin.
-- [Falsehoods about Ethereum](https://gist.github.com/spalladino/a349f0ca53dbb5fc3914243aaf7ea8c6) - Misconceptions and common pitfalls in contract programming.
 
 ## Dates and Time
 
@@ -134,17 +118,14 @@ The *falsehood* articles listed below will have a comprehensive list of those fa
 - [Falsehoods about Maps](https://web.archive.org/web/20250516080728/http://www.atlefren.net/post/2014/09/falsehoods-programmers-believe-about-maps/) - Covers coordinates, projection and GIS.
 - [Falsehoods about Weather](https://shkspr.mobi/blog/2024/06/falsehoods-programmers-believe-about-weather/) - Weather is location-dependent, and so full of edge-cases.
 - [I Hate Coordinate Systems](https://ihatecoordinatesystems.com) - A guide for geospatial practitioners on diagnosing and fixing common issues with coordinate systems.
-- [Top 5 most insane kanji place names in Japan](https://web.archive.org/web/20210310050932/https://soranews24.com/2016/12/01/w-t-f-japan-top-5-most-insane-kanji-place-names-in-japan%E3%80%90weird-top-five%E3%80%91/) - “There's one special group of kanji that's hard even for Japanese people to read: place names.”
 
 ## Human Identity
 
 - [Falsehoods about Names](https://www.kalzumeus.com/2010/06/17/falsehoods-programmers-believe-about-names/) - The article that started it all.
 - [Falsehoods about Names – With Examples](https://shinesolutions.com/2018/01/08/falsehoods-programmers-believe-about-names-with-examples/) - A revisited version of the article above, this time with detailed explanations.
 - [Falsehoods about Biometrics](https://shkspr.mobi/blog/2021/01/falsehoods-programmers-believe-about-biometrics/) - Fingerprints are not unique.
-- [Falsehoods about Families](https://shkspr.mobi/blog/2017/03/falsehoods-programmers-believe-about-families/) - You can't really define a family with strict rules.
 - Falsehoods about Gender: [#1](https://gist.github.com/garbados/f82604ea639e0e47bf44) & [#2](https://medium.com/gender-2-0/falsehoods-programmers-believe-about-gender-f9a3512b4c9c) - Gender is part of human identity and has its own subtleties.
 - [Falsehoods about Me](https://skylarmacdonald.com/falsehoods/) - Issues at the intersection of names and gender and internationalization.
-- [Gay Marriage: The Database Engineering Perspective](https://web.archive.org/web/20170914014648/https://qntm.org/gay) - How to store a marriage in a database while addressing most of the falsehoods about gender, naming and relationships.
 - [Personal Names Around the World](https://www.w3.org/International/questions/qa-personal-names) - How do people's names differ around the world, and what are the implications for the Web?
 - [XKCD #327: Exploits of a Mom](https://xkcd.com/327/) - Funny take on how implementation of a falsehood might lead to security holes.
 - [Hello, I'm Mr. Null. My Name Makes Me Invisible to Computers](https://www.wired.com/2015/11/null/) - Real-life example on how implemented falsehood has negative impact on someone's life.
@@ -174,14 +155,6 @@ On character encoding, string formatting, unicode and internationalization.
 ## Management
 
 - [Falsehoods about Job Applicants](https://web.archive.org/web/20170114022820/https://medium.com/@creatrixtiara/falsehoods-programmers-believe-about-job-applicants-99280437c616) - Assumptions about job applicants and their job histories aren't necessarily true.
-
-## Multimedia
-
-- [Falsehoods about Video](https://haasn.xyz/posts/2016-12-25-falsehoods-programmers-believe-about-%5Bvideo-stuff%5D.html) - Cover it all: video decoding and playback, files, image scaling, color spaces and conversion, displays and subtitles.
-- [Horrible edge cases to consider when dealing with music](https://dustri.org/b/horrible-edge-cases-to-consider-when-dealing-with-music.html) - Music catalogs data are full of crazy stuff.
-- [MusicBrainz database schema](https://musicbrainz.org/doc/MusicBrainz_Database/Schema) - An open-source project and database that seems to have solved the complexity of music catalog management.
-- [DDEX](https://ddex.net/standards/) - The industry standard for music metadata, including archiving, sound recording, sales and usage reporting, royalties and license deals.
-- [Apple Music Style Guide](https://help.apple.com/itc/musicstyleguide/en.lproj/static.html) - Quality insurance guidelines to format music, art, and metadata to increase discoverability.
 
 ## Networks
 
@@ -217,7 +190,6 @@ On character encoding, string formatting, unicode and internationalization.
 
 ## Society
 
-- [Falsehoods about Political Appointments](https://twitter.com/oliver_dw/status/737930439575404544) - Designing election systems has its own tricks.
 - [Falsehoods about Women In Tech](https://gist.github.com/Su-Shee/5d1a417fa9de19c15477) - Myth about women in STEM (Science, Technology, Engineering, Math) industries.
 
 ## Software Engineering
@@ -248,21 +220,10 @@ On character encoding, string formatting, unicode and internationalization.
 - [Falsehoods about Digital Object Identifiers (DOIs)](https://pardalotus.tech/posts/2024-10-02-falsehoods-programmers-believe-about-dois/) - False conceptions about the identifiers that are used to identify and link research outputs (and a lot of other things).
 - [Falsehoods about CVE](https://medium.com/@jonathan.leitschuh/falsehoods-people-believe-about-cves-85c1d063ffda) - CVE ≠ vulnerability (and 36 other confusions).
 
-## Transportation
-
-- [Falsehoods about Aviation](https://flightaware.engineering/falsehoods-programmers-believe-about-aviation/) - Aviation data are less normalized than you might think.
-- [Falsehoods about Airline Seat Maps](https://duffel.com/blog/falsehoods-about-seat-maps) - Airline seat maps are far more complex than just neat rows and columns of seats.
-- [The Maddening Mess of Airport Codes](https://www.youtube.com/watch?v=jfOUVYQnuhw) - Having multiple international and national agencies trying to reconcile history, practicality and logistics makes codes follow arcane rules.
-- [My name causes an issue with any booking!](https://web.archive.org/web/20250528134345/https://travel.stackexchange.com/questions/149323/my-name-causes-an-issue-with-any-booking-names-end-with-mr-and-mrs) - Old airline reservation systems considers the `MR` suffix as `Mister` and drops it.
-
 ## Typography
 
 - [Falsehoods about Fonts](https://github.com/RoelN/Font-Falsehoods) - Assumptions about typography on the web and in desktop applications.
 - [Truths programmers should know about case](https://www.b-list.org/weblog/2018/nov/26/case/) - A complete reverse of the falsehoods format, on the topic of case (as in uppercase and lowercase text).
-
-## Video Games
-
-- [The Door Problem](https://lizengland.com/blog/2014/04/the-door-problem/) - All the things you have not considered implementing for your doors in games.
 
 ## Web
 
