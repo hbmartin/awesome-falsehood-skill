@@ -1,0 +1,4 @@
+interface:
+  display_name: "Avoid Software Falsehoods"
+  short_description: "Review designs for false assumptions"
+  default_prompt: "Use $avoid-software-falsehoods to review this design for fragile assumptions and implementation edge cases."
