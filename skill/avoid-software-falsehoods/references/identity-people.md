@@ -29,12 +29,29 @@
 
 ## Edge Cases
 
-- `Null`, SQL-looking names, long names, single-character names, patronymics, mononyms, particles, and reordered name parts are real data, not attacks by default.
+- `Null`, SQL-looking names, long names, single-character names, patronymics, mononyms, particles, and reordered name parts are real data, not attacks by default. [P9]
 - Localized name formatters and healthcare-style name models exist because display names and legal/person-record names are richer than one string field.
 - Biometric matching can fail for injury, disability, age, sensor quality, duplicate templates, coercion, or enrollment drift.
-- XKCD-style injection names are useful reminders to escape output, but escaping is separate from rejecting real names.
+- XKCD-style injection names are useful reminders to escape output, but escaping is separate from rejecting real names. [P8]
 - A name can contain apostrophes, hyphens, spaces, prefixes, suffixes, particles, honorifics, emoji-like characters, non-Latin scripts, or characters that look like markup.
 - A user can need different pronouns, names, or privacy levels in different contexts, such as legal paperwork, support tickets, public profiles, and family-facing views.
 - Background-check and hiring systems fail when they require continuous employment, one institution per date range, one country, or Western address/name conventions.
 - Biometric identifiers cannot be rotated like passwords after compromise; fallback and revocation policies need to exist before enrollment.
 
+## Recommended Libraries
+
+- Name handling: platform person-name formatters (Apple `NSPersonNameComponentsFormatter` [P11], ICU) and the W3C personal-names guidance [P7] for schema design; prefer one full-name field plus optional structured parts over forced first/last splits.
+- Interoperable person records: HL7/FHIR person and name models when exchanging data with clinical or government systems [P10].
+- Record matching: probabilistic linkage tools (Splink, dedupe) configured to rank candidates and surface evidence for human review — never silent auto-merge.
+- Output safety: context-specific escaping (HTML, SQL parameterization, shell quoting) wherever names are rendered or stored [P8].
+
+## Sources
+
+Citation keys resolve in [source-index.md](source-index.md).
+
+- Names: [P1], [P2], [P6], [P7], [P9]
+- Gender: [P4], [P5]
+- Biometrics: [P3]
+- Hiring and demographic assumptions: [P12], [P13]
+- Modeling references: [P10], [P11]
+- Injection reminders: [P8]

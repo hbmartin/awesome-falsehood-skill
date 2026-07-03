@@ -1,0 +1,48 @@
+name: Suggest a falsehood or source
+description: Propose a falsehood, edge case, or source article missing from the skill digests
+labels: ["digest content"]
+body:
+
+  - type: dropdown
+    id: topic
+    attributes:
+      label: Topic digest
+      description: Which digest should cover this?
+      options:
+        - Contact and addressing
+        - Geography and location
+        - Identity and people
+        - Measurement
+        - Money and business
+        - Software, systems, and data
+        - Text, internationalization, and typography
+        - Time
+        - Web and networks
+        - New topic (explain below)
+    validations:
+      required: true
+
+  - type: textarea
+    id: falsehood
+    attributes:
+      label: The falsehood
+      description: >
+        State the false assumption developers make, and what actually breaks when
+        code relies on it.
+      placeholder: |
+        Falsehood: every X has exactly one Y.
+        Reality / failure mode: ...
+    validations:
+      required: true
+
+  - type: input
+    id: source
+    attributes:
+      label: Source URL (optional)
+      description: Article or reference documenting this falsehood, if one exists.
+
+  - type: textarea
+    id: fix
+    attributes:
+      label: Practical fix (optional)
+      description: The design, implementation, or test change that avoids the falsehood.

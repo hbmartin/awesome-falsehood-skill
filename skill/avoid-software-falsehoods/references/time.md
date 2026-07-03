@@ -35,11 +35,11 @@
 ## Edge Cases
 
 - Some local times do not exist during spring-forward transitions; other local times occur twice during fall-back transitions.
-- Australia/Lord_Howe has 30-minute DST shifts; historical zones include stranger offsets and date skips.
-- `2014-12-28` can belong to ISO week 1 of 2015, depending on the week calendar being used.
-- `23:59:60` can be a leap-second timestamp in systems that model leap seconds.
-- The 1927 Shanghai offset example shows that historical time-zone data updates can change arithmetic results.
-- Y2K, 2038, GPS rollovers, spreadsheet serial dates, and other critical dates are system-specific failure boundaries.
+- Australia/Lord_Howe has 30-minute DST shifts; historical zones include stranger offsets and date skips. [T6]
+- `2014-12-28` can belong to ISO week 1 of 2015, depending on the week calendar being used. [T15]
+- `23:59:60` can be a leap-second timestamp in systems that model leap seconds. [T5]
+- The 1927 Shanghai offset example shows that historical time-zone data updates can change arithmetic results. [T19]
+- Y2K, 2038, GPS rollovers, spreadsheet serial dates, and other critical dates are system-specific failure boundaries. [T20]
 - A timestamp with no offset or zone is usually a local date-time, not an instant.
 - A date-only value should not be converted through midnight UTC unless the business meaning really is an instant at UTC midnight.
 - Leap-second smearing means two systems can both claim to use UTC while disagreeing during the smear window.
@@ -48,3 +48,21 @@
 - Client and server clocks can disagree enough to break token expiry, cache freshness, upload ordering, and conflict resolution.
 - Database and language libraries can use different time-zone data versions, causing inconsistent conversions in the same stack.
 
+## Recommended Libraries
+
+- Time-zone data: the IANA tz database via your platform's maintained bindings; never hand-coded offset tables. [T8]
+- Date/time types: `java.time` (Java/Kotlin), NodaTime (.NET), `Temporal` (JavaScript), `zoneinfo` plus `datetime` (Python), `chrono-tz` or `jiff` (Rust), `time` with `time/tzdata` (Go).
+- Recurrence: RFC 5545 (iCalendar) rule engines such as `python-dateutil.rrule`, `rrule.js`, or `lib-recur` instead of custom repeat logic.
+- Elapsed time: monotonic clock APIs (`System.nanoTime`, `time.monotonic`, `performance.now`, `CLOCK_MONOTONIC`) for measuring durations.
+- Parsing and formatting: RFC 3339 / ISO 8601 library parsers with explicit format contracts [T14]; render human-facing dates with CLDR/ICU formatters.
+
+## Sources
+
+Citation keys resolve in [source-index.md](source-index.md).
+
+- Core time falsehoods: [T1], [T2], [T4], [T7], [T9]
+- Time zones and DST: [T3], [T6], [T8], [T12]
+- UTC, Unix time, and leap seconds: [T5], [T16], [T17], [T18]
+- Formats and week/year pitfalls: [T14], [T15]
+- Calendar-reform arguments: [T10], [T11]
+- Failure anecdotes and critical dates: [T13], [T19], [T20]

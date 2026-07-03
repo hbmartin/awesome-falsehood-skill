@@ -1,0 +1,32 @@
+name: Skill bug or improvement
+description: Report a problem with the skill definition, digests, install flow, or tooling
+labels: ["bug"]
+body:
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Skill definition (SKILL.md routing, triggering, guidance)
+        - Digest content (wrong, outdated, or misleading guidance)
+        - Install / packaging
+        - Scripts / CI / tooling
+        - Documentation
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: >
+        Describe the problem. For triggering/guidance issues, include the prompt you
+        used and what the agent did or missed.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?

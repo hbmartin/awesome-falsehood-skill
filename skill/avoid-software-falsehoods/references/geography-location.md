@@ -32,3 +32,20 @@
 - Elevation can be relative to sea level, an ellipsoid, a local datum, floor number, pressure altitude, or terrain model.
 - Map tiles, vector data, and search indexes may update on different schedules, so a visible map and an API result can disagree.
 
+
+## Recommended Libraries
+
+- Projections and datums: PROJ (and bindings such as `pyproj`) with explicit EPSG codes carried alongside the data.
+- Geometry and containment: GEOS/JTS-based libraries (Shapely, JSTS, NetTopologySuite), Turf.js, or PostGIS for storage and queries.
+- Geodesics: GeographicLib for accurate ellipsoidal distance and bearing when haversine approximations are not enough.
+- Spatial indexing and tiling: S2 or H3 cells and R-tree indexes, with antimeridian and polar cases handled explicitly.
+- Data: versioned authoritative boundary datasets (national agencies, OSM extracts, Natural Earth), because boundaries and names change.
+
+## Sources
+
+Citation keys resolve in [source-index.md](source-index.md).
+
+- Geography and place names: [G1]
+- Maps and projections: [G2]
+- Weather: [G3]
+- Coordinate systems and datums: [G4]

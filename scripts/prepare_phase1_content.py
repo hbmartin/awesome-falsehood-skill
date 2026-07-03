@@ -5,6 +5,11 @@ This script intentionally does not create SKILL.md or skill metadata. It turns
 the legacy Awesome Falsehood reference link index into a local source mirror,
 normalized Markdown, agent-facing prepared topic notes, and a
 retrieval/filtering report.
+
+All output is machine-generated intermediate material under `sources/` and
+`reports/`. The curated topic digests that ship with the skill live in
+`skill/avoid-software-falsehoods/references/` and are maintained by hand; this
+script never writes there.
 """
 
 from __future__ import annotations
@@ -33,7 +38,7 @@ REFERENCE_DOC_REL = REFERENCE_DOC.relative_to(ROOT).as_posix()
 SOURCES_DIR = ROOT / "sources"
 RAW_DIR = SOURCES_DIR / "raw"
 MARKDOWN_DIR = SOURCES_DIR / "markdown"
-PREPARED_DIR = ROOT / "prepared"
+PREPARED_DIR = SOURCES_DIR / "prepared"
 REPORTS_DIR = ROOT / "reports"
 
 LINK_RE = re.compile(r"(?<!!)\[([^\]]+)\]\(([^)]+)\)")
@@ -504,11 +509,31 @@ def extension_for(entry: dict, content_type: str = "") -> str:
     return ".html"
 
 
+def wayback_fallback_url(url: str) -> str:
+    """Return a Wayback Machine URL for the latest snapshot, or "" if not applicable."""
+    if "web.archive.org" in urlparse(url).netloc.lower():
+        return ""
+    return f"https://web.archive.org/web/2/{url}"
+
+
 def run_curl(entry: dict) -> dict:
+    attempt = fetch_attempt(entry, entry["fetch_url"])
+    if not attempt["retrieval_status"].startswith("fetched"):
+        fallback = wayback_fallback_url(entry["fetch_url"])
+        if fallback:
+            wayback_attempt = fetch_attempt(entry, fallback)
+            if wayback_attempt["retrieval_status"].startswith("fetched"):
+                wayback_attempt["retrieval_status"] = "fetched_wayback"
+                wayback_attempt["wayback_url"] = fallback
+                attempt = wayback_attempt
+    entry.update(attempt)
+    return entry
+
+
+def fetch_attempt(entry: dict, url: str) -> dict:
     RAW_DIR.mkdir(parents=True, exist_ok=True)
     headers_path = RAW_DIR / f"{entry['id']}.headers"
     temp_path = RAW_DIR / f"{entry['id']}.download"
-    url = entry["fetch_url"]
     command = [
         "curl",
         "-L",
@@ -551,18 +576,15 @@ def run_curl(entry: dict) -> dict:
     else:
         retrieval_status = f"failed: {result.stderr.strip() or 'curl failed'}"
 
-    entry.update(
-        {
-            "resolved_url": resolved_url,
-            "http_status": http_status,
-            "content_type": content_type,
-            "retrieval_status": retrieval_status,
-            "raw_path": relative_path(raw_path) if raw_path.exists() else "",
-            "headers_path": relative_path(headers_path) if headers_path.exists() else "",
-            "raw_bytes": size,
-        }
-    )
-    return entry
+    return {
+        "resolved_url": resolved_url,
+        "http_status": http_status,
+        "content_type": content_type,
+        "retrieval_status": retrieval_status,
+        "raw_path": relative_path(raw_path) if raw_path.exists() else "",
+        "headers_path": relative_path(headers_path) if headers_path.exists() else "",
+        "raw_bytes": size,
+    }
 
 
 def redact_sensitive_tokens(path: Path) -> int:

@@ -1,0 +1,46 @@
+---
+name: 🔄 Upstream sync
+"on":
+  workflow_dispatch:
+  schedule:
+    # Weekly, Monday 06:20 UTC.
+    - cron: "20 6 * * 1"
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+
+  check-upstream:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Diff against upstream awesome-falsehood
+        id: diff
+        run: |
+          python3 scripts/check_upstream.py > new-links.md
+          if [ -s new-links.md ]; then
+            echo "has_new=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_new=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: File or refresh tracking issue
+        if: steps.diff.outputs.has_new == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          gh label create upstream-sync --description "New links available upstream" --color 1D76DB 2>/dev/null || true
+          existing=$(gh issue list --label upstream-sync --state open --json number --jq '.[0].number // empty')
+          if [ -n "$existing" ]; then
+            gh issue edit "$existing" --body-file new-links.md
+            echo "Updated issue #$existing"
+          else
+            gh issue create \
+              --title "Upstream sync: new falsehood links available" \
+              --label upstream-sync \
+              --body-file new-links.md
+          fi

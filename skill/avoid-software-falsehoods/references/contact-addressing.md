@@ -31,8 +31,8 @@
 ## Edge Cases
 
 - Valid email examples can include quoted spaces, unusual symbols, source routing remnants, internationalized domains, and addresses that many providers still reject operationally.
-- Costa Rican landmark-based directions, Icelandic map-only addressing, UK property oddities, and Smokey Bear having ZIP Code `20252` all break standard address assumptions.
-- Japanese postal CSV data and USPS Publication 28 show that even official address data has formatting and normalization traps.
+- Costa Rican landmark-based directions, Icelandic map-only addressing, UK property oddities, and Smokey Bear having ZIP Code `20252` all break standard address assumptions. [C14], [C15], [C16], [C17]
+- Japanese postal CSV data and USPS Publication 28 show that even official address data has formatting and normalization traps. [C19], [C20]
 - Libraries such as `libphonenumber`, `libaddressinput`, `addressing`, `postal-address`, and `libvldmail` are support tools, not proof that validation is universal or permanent.
 - Quoted email local parts can contain spaces or an `@`; splitting on the first `@` is wrong when quoted strings are allowed.
 - A domain literal such as an IP address can be syntactically valid in an email address, even if many real systems reject it.
@@ -40,3 +40,17 @@
 - Some addresses are deliverable only because local carriers know the recipient, landmark, route, or institution; automated geocoding may fail while mail still arrives.
 - Imported address datasets often contain abbreviations, legacy spellings, mixed scripts, unofficial local names, or administrative changes that are still useful to carriers.
 
+## Recommended Libraries
+
+- Phone numbers: Google `libphonenumber` [C7] or its maintained ports (Python [C10], PHP [C11], C# [C8], iOS [C9]) for parsing, formatting, and metadata — paired with SMS or call verification when you need proof of control.
+- Postal addresses: `libaddressinput` [C21] for per-country form layouts; `addressing` [C22], `postal-address` [C23], or `address` [C24] for formatting and subdivision metadata; `libpostal` for parsing free-form input; carrier or postal APIs (USPS, Royal Mail, national posts) when deliverability actually matters.
+- Email: maintained RFC-aware validators such as `libvldmail` [C5] only as a preflight check; a confirmation message is the real validity test.
+
+## Sources
+
+Citation keys resolve in [source-index.md](source-index.md).
+
+- Email: [C1], [C2], [C3], [C4]
+- Phone numbers: [C6]
+- Postal addresses, residence, and delivery: [C12], [C13], [C14], [C15], [C16], [C17], [C18], [C19], [C20]
+- Support libraries: [C5], [C7], [C8], [C9], [C10], [C11], [C21], [C22], [C23], [C24]
