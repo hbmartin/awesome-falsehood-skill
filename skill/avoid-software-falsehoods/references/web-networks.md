@@ -29,7 +29,7 @@
 
 ## Edge Cases
 
-- Favicons may require HTML discovery, redirects, relative URLs, multiple sizes, MIME confusion, fallback paths, caching, and error handling.
+- Favicons may require HTML discovery, redirects, relative URLs, multiple sizes, MIME confusion, fallback paths, caching, and error handling. [W9]
 - Distributed systems fail through timeouts, retries, split brain, clock skew, duplicate messages, stale reads, and partial commits.
 - Different URL parsers can disagree about where the host starts, how escapes decode, or whether a string is valid.
 - IDN homographs and mixed-script labels can render as visually similar but distinct names.
@@ -38,5 +38,22 @@
 - Redirect chains can change scheme, host, path, cookies, headers, and method; clients need a policy for each transition.
 - REST pagination over mutable data can skip or duplicate resources if cursors do not encode sort position and filter context.
 - API clients should handle rate limits, Retry-After, partial responses, schema additions, unknown enum values, and eventual consistency.
-- Favicons can be declared in multiple link tags, Apple touch icons, web manifests, `/favicon.ico`, SVGs, PNGs, or invalid content-type responses.
+- Favicons can be declared in multiple link tags, Apple touch icons, web manifests, `/favicon.ico`, SVGs, PNGs, or invalid content-type responses. [W9]
 
+## Recommended Libraries
+
+- URLs: WHATWG URL parsers (the `URL` class in browsers and Node, Ada, `whatwg-url`) or strict RFC 3986 libraries, with one documented canonicalization per purpose [W8].
+- IP addresses: standard-library types (`ipaddress` in Python, `net/netip` in Go, `std::net` in Rust) instead of regex matching [W3], [W4].
+- Domains and IDNs: UTS-46/IDNA processing libraries plus the Public Suffix List for registrable-domain logic [W5].
+- HTML: spec-compliant HTML5 parsers (parse5, html5lib, html5ever, lxml's html5parser) — never regex extraction [W6].
+- HTTP resilience: clients with explicit timeouts, retry-with-backoff, and circuit breakers (tenacity, resilience4j, got/ky, Polly), with idempotency keys on retried writes.
+
+## Sources
+
+Citation keys resolve in [source-index.md](source-index.md).
+
+- Networks and distributed systems: [W1], [W2]
+- IP addresses, DNS, and IDNs: [W3], [W4], [W5]
+- HTML and URLs: [W6], [W8]
+- REST APIs: [W7]
+- Favicons: [W9]

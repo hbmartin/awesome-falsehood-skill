@@ -1,6 +1,6 @@
 ---
 name: avoid-software-falsehoods
-description: Review and build software while avoiding common false assumptions about time, identity, contact data, geography, money, measurement, text and internationalization, web and network behavior, and software systems. Use when Codex is designing or reviewing schemas, validators, parsers, APIs, data models, tests, migrations, UX flows, integrations, or code for fragile assumptions, edge cases, normalization, identifiers, localization, or domain-specific data correctness.
+description: Review and build software while avoiding common false assumptions about time and time zones, names and human identity, email addresses, phone numbers, postal addresses, geography, money and currencies, units of measurement, Unicode and internationalization, URLs and network behavior, and software systems data. Use when designing or reviewing database schemas, validators, parsers, API contracts, data models, forms, tests, migrations, or integrations; when building signup, checkout, payments, scheduling, recurring events, cron jobs, localization, search, pagination, CSV or YAML import, or file path handling; or when checking code for fragile assumptions, edge cases, lossy normalization, identifier collisions, or data-loss risks.
 ---
 
 # Avoid Software Falsehoods
@@ -8,7 +8,7 @@ description: Review and build software while avoiding common false assumptions a
 ## Core Workflow
 
 1. Identify the domain surfaces in the request: data model, parser, validator, API contract, UI form, workflow, integration, migration, review target, or test suite.
-2. Load only the relevant reference digest files from `references/`. Start with each digest's `Core Rules`, then use `Falsehoods To Avoid` and `Edge Cases` as a checklist.
+2. Load only the relevant reference digest files from `references/`. Start with each digest's `Core Rules`, then use `Falsehoods To Avoid` and `Edge Cases` as a checklist, and `Recommended Libraries` when choosing or reviewing dependencies.
 3. Preserve user intent and raw input where normalization, parsing, localization, or authority-specific validation could be lossy.
 4. Separate display values, canonical comparison values, derived values, source-of-truth records, cached/generated state, and external authority results.
 5. Prefer mature libraries, standards, authoritative datasets, and explicit policies over ad hoc regexes, string splitting, implicit defaults, or hidden normalization.
@@ -25,7 +25,7 @@ description: Review and build software while avoiding common false assumptions a
 - Text, internationalization, and typography: read `references/text-i18n-typography.md` for Unicode, locale, casing, sorting, segmentation, escaping, fonts, layout, and display width.
 - Time: read `references/time.md` for instants, dates, durations, time zones, calendars, recurrence, clocks, precision, and scheduling.
 - Web and networks: read `references/web-networks.md` for URLs, IP addresses, DNS, IDNs, HTML, HTTP, REST APIs, retries, redirects, caching, and distributed behavior.
-- Provenance: read `references/source-index.md` only when citations, upstream links, or deeper source material are needed. Read `references/00-overview.md` for a compact map of all topics.
+- Provenance: read `references/source-index.md` only when citations, upstream links, or deeper source material are needed. Each digest ends with a `Sources` section whose `[X0]`-style keys resolve to entries in the source index. Read `references/00-overview.md` for a compact map of all topics.
 
 ## Review Guidance
 

@@ -36,10 +36,10 @@
 
 ## Edge Cases
 
-- Floating point examples such as `0.1 + 0.2 != 0.3` are expected representation behavior, not language breakage.
+- Floating point examples such as `0.1 + 0.2 != 0.3` are expected representation behavior, not language breakage. [S25]
 - Windows paths, Unix paths, UNC paths, reserved names, symlinks, normalization, case sensitivity, and mount behavior break portable string assumptions.
-- YAML can turn strings into numbers, booleans, timestamps, or non-string keys unless parsers and schemas are chosen carefully.
-- `mtime` comparison can miss changes or invent changes because clocks, resolution, filesystems, and copy tools differ.
+- YAML can turn strings into numbers, booleans, timestamps, or non-string keys unless parsers and schemas are chosen carefully. [S26]
+- `mtime` comparison can miss changes or invent changes because clocks, resolution, filesystems, and copy tools differ. [S23]
 - Search behavior depends on tokenization, stemming, stop words, analyzers, highlighting, ranking, pagination, and index freshness.
 - Package managers and build tools can disagree about names, versions, dependency resolution, lockfiles, and platform compatibility.
 - Path gotchas include reserved device names, trailing dots/spaces, Unicode normalization, symlink loops, hard links, network mounts, case folding, and maximum path lengths.
@@ -51,3 +51,23 @@
 - State machines fail when invalid states are representable, transitions are implicit, or persistence captures a half-transition.
 - Tests that rely on time, network order, filesystem order, random seeds, or external package state are often nondeterministic.
 
+## Recommended Libraries
+
+- Versions: the SemVer reference parsers, `packaging.version` (Python), `semver` (Rust/JS), plus explicit policies for epochs, prereleases, and distro revisions [S6].
+- CSV: real CSV parsers (Python `csv`, Papa Parse, univocity, Rust `csv`) with explicit dialect, encoding, and quoting settings [S11].
+- YAML: YAML 1.2 parsers or safe-loading modes (`yaml.safe_load`, StrictYAML) with schemas to defuse implicit typing [S26].
+- Paths: standard-library path types (`pathlib`, `std::path`, `java.nio.file.Path`) over string concatenation [S18], [S19].
+- Randomness and IDs: CSPRNG APIs (`secrets`, `crypto.randomBytes`, `getrandom`) for anything security-relevant [S20]; UUID/ULID/KSUID libraries for identifiers.
+- Retries and events: idempotency keys, dedupe stores, and clients or brokers whose at-least-once semantics are made explicit [S28].
+
+## Sources
+
+Citation keys resolve in [source-index.md](source-index.md).
+
+- Meta and general programming: [S1], [S2], [S3], [S4], [S5]
+- Versions, builds, and packages: [S6], [S7], [S12]
+- Language and runtime behavior: [S8], [S9], [S10], [S17], [S25]
+- Formats and paths: [S11], [S18], [S19], [S23], [S26]
+- Search, pagination, autocomplete, tagging: [S14], [S15], [S16], [S24], [S27]
+- State, events, randomness: [S20], [S21], [S28]
+- Identifiers, testing, and process: [S13], [S22], [S29], [S30]

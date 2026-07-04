@@ -27,3 +27,15 @@
 - Shipping dimensions often require packed size, unpacked size, dimensional weight, actual weight, and carrier-specific rounding.
 - Medical and laboratory units can be per-volume, per-mass, molar, activity-based, or normalized to body surface area.
 
+## Recommended Libraries
+
+- Unit-aware quantities: `pint` (Python), JSR-385 / Indriya (Java), UnitsNet (.NET), `js-quantities` or `mathjs` units (JavaScript), `uom` (Rust) instead of bare numbers.
+- Medical and laboratory units: UCUM codes with validated conversion tables rather than ad hoc unit strings.
+- Locale-aware display: CLDR/ICU number and measurement formatters for separators, symbols, and preferred unit systems.
+
+## Sources
+
+Citation keys resolve in [source-index.md](source-index.md).
+
+- Systems of measurement: [M1]
+- Localized temperature conversion: [X13] (indexed under text and internationalization)

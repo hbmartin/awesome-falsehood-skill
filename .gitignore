@@ -1,0 +1,10 @@
+# Machine-generated source mirrors and intermediate notes produced by
+# scripts/prepare_phase1_content.py. Only the manifest and report are tracked.
+sources/raw/
+sources/markdown/
+sources/prepared/
+
+__pycache__/
+*.pyc
+.pytest_cache/
+dist/

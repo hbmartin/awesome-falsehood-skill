@@ -30,7 +30,7 @@
 ## Edge Cases
 
 - Combining marks, ligatures, surrogate pairs, zero-width joiners, emoji sequences, regional indicators, and variation selectors break naive substring work.
-- Case handling examples such as Turkish dotted/dotless I and German sharp S show that lower/upper/title case are not simple ASCII transforms.
+- Case handling examples such as Turkish dotted/dotless I and German sharp S show that lower/upper/title case are not simple ASCII transforms. [X17]
 - Bidirectional text, mixed scripts, homoglyphs, and IDN-like strings can be visually confusing without being invalid.
 - Naughty-string corpora and i18n testing datasets are support material for finding assumptions in validation, escaping, storage, and rendering.
 - Emoji skin-tone modifiers, family sequences, flags, and ZWJ sequences can be one displayed unit made of many code points.
@@ -39,3 +39,21 @@
 - Line wrapping differs for Thai, Japanese, Chinese, Korean, Arabic, and emoji-heavy text because spaces are not universal word separators.
 - Case-insensitive identifiers can collide after Unicode folding even when source strings look distinct.
 
+## Recommended Libraries
+
+- Locale infrastructure: ICU (ICU4C, ICU4J, ICU4X) backed by CLDR data for casing, collation, segmentation, formatting, and transliteration.
+- Grapheme segmentation: `Intl.Segmenter` (JavaScript), `unicode-segmentation` (Rust), `grapheme`/`uniseg` libraries (Python, Go) instead of code-point iteration.
+- Normalization: standard-library NFC/NFD/NFKC/NFKD (`unicodedata`, `String.prototype.normalize`) applied per documented comparison purpose.
+- Messages and plurals: ICU MessageFormat or Fluent instead of string concatenation and hand-rolled plural rules.
+- Rendering: HarfBuzz-based shaping and platform text stacks; test fallback fonts and display width with multilingual corpora [X14] and hostile strings [X15].
+
+## Sources
+
+Citation keys resolve in [source-index.md](source-index.md).
+
+- Language and grammar: [X1], [X2]
+- Plain text and Unicode: [X3], [X4], [X6], [X8], [X9], [X10], [X11]
+- Casing: [X17]
+- Localization semantics: [X13]
+- Fonts and typography: [X16]
+- Test corpora and talks: [X5], [X7], [X12], [X14], [X15]
